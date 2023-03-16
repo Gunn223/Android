@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "794113359857",
+    "project_id": "temanku-784bf",
+    "storage_bucket": "temanku-784bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794113359857:android:f61d7160b58e065d444e50",
+        "android_client_info": {
+          "package_name": "com.example.temanku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794113359857-sn7s032ujkbpskl4c5fk5ia86b27mgop.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCHkbzh0uDtLhx_MSBPyfQVjrFq9iW9Ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794113359857-sn7s032ujkbpskl4c5fk5ia86b27mgop.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
