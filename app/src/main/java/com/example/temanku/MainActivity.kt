@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 if (isEmpty(getNama) || isEmpty(getAlamat) || isEmpty(getNoHP)){
                     Toast.makeText(this@MainActivity, "Data tidak Boleh ada yang kosong",Toast.LENGTH_SHORT).show()
                 }else{
-                    getReference.child("admin").child(getUserId).child("Data Teman").push()
+                    getReference.child("Admin").child(getUserId).child("DataTeman").push()
                         .setValue(data_teman(getNama,getAlamat,getNoHP))
                         .addOnCompleteListener(this){
                             binding.nama.setText("")
