@@ -72,17 +72,16 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             R.id.logout ->{
                 AuthUI.getInstance()
                     .signOut(this)
-                    .addOnCompleteListener(object : OnCompleteListener<Void>{
-                        override fun onComplete(p0: Task<Void>){
-                            Toast.makeText(this@MainActivity,"logout berhasil",Toast.LENGTH_SHORT).show()
-                            intent = Intent(applicationContext,LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                    })
+                    .addOnCompleteListener {
+                        Toast.makeText(this@MainActivity, "logout berhasil", Toast.LENGTH_SHORT)
+                            .show()
+                        intent = Intent(applicationContext, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
             }
             R.id.lihatdata->{
-
+                startActivity(Intent(this@MainActivity,MyListData::class.java))
             }
         }
     }
