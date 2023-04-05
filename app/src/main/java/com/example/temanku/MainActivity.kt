@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 val getAlamat:String = binding.alamat.text.toString()
                 val getNoHP:String = binding.noHp.text.toString()
 
-                val getReference: DatabaseReference
+                    val getReference: DatabaseReference
                 getReference = database.reference
 
                 if (isEmpty(getNama) || isEmpty(getAlamat) || isEmpty(getNoHP)){

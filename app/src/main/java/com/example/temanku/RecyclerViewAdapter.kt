@@ -1,6 +1,11 @@
 package com.example.temanku
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,17 +42,52 @@ class RecyclerViewAdapter(private val listdata_teman:ArrayList<data_teman>, cont
         return ViewHolder(v)
     }
 
+    var listener: data_listener? = null
+
+    interface data_listener {
+        fun OnDeleteData(data:data_teman?, position: Int)
+    }
+
+
+    @SuppressLint("RecyclerView")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val Nama:String? = listdata_teman[position].nama
         val Alamat:String? = listdata_teman[position].alamat
         val Nohp:String? = listdata_teman[position].no_hp
-//        val Jkel:String? = listdata_teman.get(position).jkel
+//       val Jkel:String? = listdata_teman.get(position).jkel
 
         holder.Nama.text = "Nama $Nama"
         holder.Alamat.text = "Alamat $Alamat"
         holder.Nohp.text = "Telepon $Nohp"
 //        holder.Nama.text = "Jenis Kelamin $Jkel"
-        holder.Listitem.setOnLongClickListener { true }
+        holder.Listitem.setOnLongClickListener(object :View.OnLongClickListener {
+            override fun onLongClick(v: View?): Boolean {
+                holder.Listitem.setOnLongClickListener { view ->
+                    val action = arrayOf("Update", "Delete")
+                    val alert: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                    alert.setItems(action, DialogInterface.OnClickListener{ dialog, i ->
+                        when (i) { 0 -> {
+                                val bundle = Bundle()
+                                bundle.putString("dataNama", listdata_teman[position].nama)
+                                bundle.putString("dataAlamat", listdata_teman[position].alamat)
+                                bundle.putString("dataNomorHp", listdata_teman[position].no_hp)
+                                bundle.putString("getPrimaryKey", listdata_teman[position].key)
+                                val intent = Intent(view.context, UpdateData::class.java)
+                                intent.putExtras(bundle)
+                                context.startActivity(intent)
+                            }
+                            1 -> {
+                                listener?.OnDeleteData(listdata_teman.get(position),position)
+                            }
+                        }
+                    })
+                    alert.create()
+                    alert.show()
+                    true
+                }
+                return true
+            }
+        })
     }
 
     override fun getItemCount(): Int {
@@ -55,6 +95,7 @@ class RecyclerViewAdapter(private val listdata_teman:ArrayList<data_teman>, cont
     }
     init {
         this.context = context
+        this.listener= context as MyListData
     }
 }
 

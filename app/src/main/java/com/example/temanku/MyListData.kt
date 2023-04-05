@@ -1,5 +1,6 @@
 package com.example.temanku
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,7 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class MyListData:AppCompatActivity() {
+class MyListData:AppCompatActivity(), RecyclerViewAdapter.data_listener {
 
     private var recyclerview:RecyclerView? = null
     private var adapter:RecyclerView.Adapter<*>?=null
@@ -44,6 +45,7 @@ class MyListData:AppCompatActivity() {
             .addValueEventListener(object:ValueEventListener{
                 override fun onDataChange(dataSnapshot:DataSnapshot) {
                     if (dataSnapshot.exists()){
+                        dataTeman.clear()
                         for (snapsot in dataSnapshot.children){
                             val teman = snapsot.getValue(data_teman::class.java)
                             teman?.key = snapsot.key
@@ -75,4 +77,21 @@ class MyListData:AppCompatActivity() {
         itemDecoration.setDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.line)!!)
         recyclerview?.addItemDecoration(itemDecoration)
     }
-}
+
+    override fun OnDeleteData(data: data_teman?, position: Int) {
+        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+        val getrefrence = database.getReference()
+
+        if (getrefrence != null){
+
+            getrefrence.child("Admin").child(getUserID).child("DataTeman").child(data?.key.toString()).removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(this@MyListData,  "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+                    intent = Intent(applicationContext,MyListData::class.java)
+                    startActivity(intent)
+                    finish()
+                }} else {
+            Toast.makeText(this@MyListData, "Data Gagaldihapus", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }

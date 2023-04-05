@@ -15,6 +15,9 @@
             android:exported="false"
             >
         </activity>
+        <activity android:name=".UpdateData"
+            android:exported="false"
+            ></activity>
         <activity android:name=".MyListData"
             android:exported="false"
             >
